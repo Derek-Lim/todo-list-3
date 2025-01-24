@@ -1,11 +1,83 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Todo List</title>
-</head>
-<body>
-
-</body>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Todo List</title>
+  </head>
+  <body>
+    <nav class="navbar">
+      <span class="navbar-brand">Todo List</span>
+      <button class="add-todo-btn">+</button>
+    </nav>
+    <div class="container">
+      <div class="sidebar">
+        <div class="category">
+          <span>Home</span>
+          <button>9</button>
+        </div>
+        <div class="category">
+          <span>Today</span>
+          <button>2</button>
+        </div>
+        <div class="category">
+          <span>Week</span>
+          <button>1</button>
+        </div>
+        <hr>
+        <div class="category project-header">Projects</div>
+        <div class="category">
+          <span>Gym</span>
+          <button>2</button>
+        </div>
+        <div class="category">
+          <span>Study</span>
+          <button>1</button>
+        </div>
+        <div class="category">
+          <span>Work</span>
+          <button>1</button>
+        </div>
+      </div>
+      <div class="todo-container">
+        <div class="todo-item priority-high">
+          <div class="todo-item-section">
+            <input type="checkbox">
+            <span>Learn Webpack</span>
+          </div>
+          <div class="todo-item-section">
+            <span>Jun 8th</span>
+            <button>Details</button>
+            <img src="edit.png" height="20px">
+            <img src="delete.png" height="20px">
+          </div>
+        </div>
+        <div class="todo-item priority-medium">
+          <div class="todo-item-section">
+            <input type="checkbox">
+            <span>Jog</span>
+          </div>
+          <div class="todo-item-section">
+            <span>Jun 8th</span>
+            <button>Details</button>
+            <img src="edit.png" height="20px">
+            <img src="delete.png" height="20px">
+          </div>
+        </div>
+        <div class="todo-item priority-low">
+          <div class="todo-item-section">
+            <input type="checkbox">
+            <span>Water plants</span>
+          </div>
+          <div class="todo-item-section">
+            <span>Jun 8th</span>
+            <button>Details</button>
+            <img src="edit.png" height="20px">
+            <img src="delete.png" height="20px">
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer class="footer">Copyright © 2025 Derek Lim</footer>
+  </body>
 </html>

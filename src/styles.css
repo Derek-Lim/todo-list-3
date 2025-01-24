@@ -1,0 +1,105 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+button {
+  border-radius: 10px;
+  padding: 5px;
+  background-color: black;
+  color: white;
+}
+
+hr {
+  width: 80%;
+  margin: 10px auto;
+}
+
+.navbar {
+  background-color: lightskyblue;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.navbar-brand {
+  font-size: 50px;
+}
+
+.add-todo-btn {
+  font-size: 40px;
+  padding: 0px 15px;
+  border-radius: 50%;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  min-height: 83vh;
+  margin-bottom: 30px;
+}
+
+.sidebar {
+  background-color: white;
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.category {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  font-size: 20px;
+}
+
+.project-header {
+  font-size: 25px;
+  text-decoration: underline;
+}
+
+.todo-container {
+  background-color: lightslategray;
+  padding-top: 10px;
+}
+
+.todo-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 15px;
+  margin: 10px 20px;
+  align-items: center;
+  gap: 20px;
+  border-radius: 10px;
+}
+
+.priority-high {
+  background-color: red;
+}
+
+.priority-medium {
+  background-color: orange;
+}
+
+.priority-low {
+  background-color: yellow;
+}
+
+.todo-item-section {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.footer {
+  text-align: center;
+  background-color: black;
+  color: white;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  padding: 10px;
+  font-size: 20px;
+}
