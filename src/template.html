@@ -8,7 +8,47 @@
   <body>
     <nav class="navbar">
       <span class="navbar-brand">Todo List</span>
-      <button class="add-todo-btn">+</button>
+      <button id="add-todo-open-btn">+</button>
+      <dialog id="add-todo-modal">
+        <form id="add-todo-form">
+          <div class="form-header">Add Todo</div>
+          <hr>
+          <label for="title">
+            Title
+            <input type="text" name="title" id="title" required>
+          </label>
+          <label for="project">
+            Project
+            <input type="text" name="project" id="project" required>
+          </label>
+          <label for="due-date">
+            Due Date
+            <input type="date" name="due-date" id="due-date" required>
+          </label>
+          <label for="description">Description</label>
+          <textarea name="description" id="description" required></textarea>
+          <div>Priority</div>
+          <div>
+            <label for="priority">
+              <input type="radio" id="high" name="priority" required>
+              High
+            </label>
+            <label for="priority">
+              <input type="radio" id="medium" name="priority" required>
+              Medium
+            </label>
+            <label for="priority">
+              <input type="radio" id="low" name="priority" required>
+              Low
+            </label>
+          </div>
+          <hr>
+          <div class="form-button-container">
+            <button id="add-todo-close-btn" type="button">Cancel</button>
+            <button type="submit">Submit</button>
+          </div>
+        </form>
+      </dialog>
     </nav>
     <div class="container">
       <div class="sidebar">
@@ -39,44 +79,7 @@
           <button>1</button>
         </div>
       </div>
-      <div class="todo-container">
-        <div class="todo-item priority-high">
-          <div class="todo-item-section">
-            <input type="checkbox">
-            <span>Learn Webpack</span>
-          </div>
-          <div class="todo-item-section">
-            <span>Jun 8th</span>
-            <button>Details</button>
-            <img src="edit.png" height="20px">
-            <img src="delete.png" height="20px">
-          </div>
-        </div>
-        <div class="todo-item priority-medium">
-          <div class="todo-item-section">
-            <input type="checkbox">
-            <span>Jog</span>
-          </div>
-          <div class="todo-item-section">
-            <span>Jun 8th</span>
-            <button>Details</button>
-            <img src="edit.png" height="20px">
-            <img src="delete.png" height="20px">
-          </div>
-        </div>
-        <div class="todo-item priority-low">
-          <div class="todo-item-section">
-            <input type="checkbox">
-            <span>Water plants</span>
-          </div>
-          <div class="todo-item-section">
-            <span>Jun 8th</span>
-            <button>Details</button>
-            <img src="edit.png" height="20px">
-            <img src="delete.png" height="20px">
-          </div>
-        </div>
-      </div>
+      <div class="todo-container"></div>
     </div>
     <footer class="footer">Copyright © 2025 Derek Lim</footer>
   </body>

@@ -15,6 +15,35 @@ hr {
   margin: 10px auto;
 }
 
+dialog {
+  margin: auto;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  gap: 10px;
+  font-size: 25px;
+}
+
+input, textarea {
+  font-size: 20px;
+}
+
+.form-header {
+  font-size: 40px;
+  margin: auto;
+}
+
+.form-button-container {
+  margin: auto;
+}
+
+.form-button-container > button {
+  font-size: 20px;
+}
+
 .navbar {
   background-color: lightskyblue;
   padding: 20px;
@@ -26,7 +55,7 @@ hr {
   font-size: 50px;
 }
 
-.add-todo-btn {
+#add-todo-open-btn {
   font-size: 40px;
   padding: 0px 15px;
   border-radius: 50%;
