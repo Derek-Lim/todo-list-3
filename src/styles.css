@@ -105,13 +105,22 @@ input, textarea {
 .priority-high {
   background-color: red;
 }
+.priority-high.completed {
+  background-color: rgb(200, 0, 0);
+}
 
 .priority-medium {
   background-color: orange;
 }
+.priority-medium.completed {
+  background-color: rgb(200, 110, 0);
+}
 
 .priority-low {
   background-color: yellow;
+}
+.priority-low.completed {
+  background-color: rgb(200, 200, 0);
 }
 
 .todo-item-section {

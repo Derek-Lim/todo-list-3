@@ -15,14 +15,18 @@ function App() {
     document.querySelector('.todo-container').innerHTML = ''
 
     const list = TL.getList()
-    list.forEach(item => createTodo(item.title, item.dueDate, item.priority))
+    list.forEach((item, index) => {
+      createTodo(item.title, item.dueDate, item.priority, item.completed, index)
+    })
   }
 
-  const createTodo = (title, dueDate, priority) => {
+  const createTodo = (title, dueDate, priority, completed, index) => {
     const todoContainer = document.querySelector('.todo-container')
   
     const todoItem = document.createElement('div')
     todoItem.classList.add('todo-item', `priority-${priority}`)
+    todoItem.dataset.index = index
+    todoItem.classList.toggle('completed', completed)
     todoContainer.appendChild(todoItem)
   
     const todoItemSection1 = document.createElement('div')
@@ -31,10 +35,17 @@ function App() {
   
     const input = document.createElement('input')
     input.setAttribute('type', 'checkbox')
+    input.dataset.index = index
+    input.addEventListener('change', () => {
+      TL.toggleCompletion(index)
+      updateTodoContainer()
+    })
+    if (completed) input.setAttribute('checked', true)
     todoItemSection1.appendChild(input)
   
     const span1 = document.createElement('span')
     span1.textContent = title
+    if (completed) span1.style.textDecoration = 'line-through'
     todoItemSection1.appendChild(span1)
   
     const todoItemSection2 = document.createElement('div')
@@ -47,16 +58,19 @@ function App() {
   
     const button = document.createElement('button')
     button.textContent = 'Details'
+    button.dataset.index = index
     todoItemSection2.appendChild(button)
   
     const img1 = document.createElement('img')
     img1.src = editIcon
     img1.setAttribute('height', '20px')
+    img1.dataset.index = index
     todoItemSection2.appendChild(img1)
   
     const img2 = document.createElement('img')
     img2.src = deleteIcon
     img2.setAttribute('height', '20px')
+    img2.dataset.index = index
     todoItemSection2.appendChild(img2)
   }
 
@@ -161,6 +175,12 @@ function App() {
     return `${monthChart[month]} ${+day}, ${+year}`
   }
 
+  const updateUI = () => {
+    updateMenu()
+    updateProjectContainer()
+    updateTodoContainer()
+  }
+
   const addTodoFormHandler = (e) => {
     e.preventDefault()
 
@@ -171,9 +191,7 @@ function App() {
       addTodoForm.querySelector('input[name="priority"]:checked').id,
       addTodoForm.querySelector('#project').value
     )
-    updateMenu()
-    updateProjectContainer()
-    updateTodoContainer()
+    updateUI()
     clearAddTodoForm()
     addTodoModal.close()
   }
@@ -185,9 +203,7 @@ function App() {
   }
 
   loadEventListeners()
-  updateMenu()
-  updateProjectContainer()
-  updateTodoContainer()
+  updateUI()
 }
 
 App()
