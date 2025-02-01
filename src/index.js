@@ -38,6 +38,7 @@ function App() {
     input.dataset.index = index
     input.addEventListener('change', () => {
       TL.toggleCompletion(index)
+      updateProgressBar()
       updateTodoContainer()
     })
     if (completed) input.setAttribute('checked', true)
@@ -113,10 +114,10 @@ function App() {
   }
 
   const updateMenu = () => {
-    const totalCountBtn = document.querySelector('.total-count')
-    const todayCountBtn = document.querySelector('.today-count')
-    totalCountBtn.textContent = TL.getList().length
-    todayCountBtn.textContent = getTodayCount()
+    document.querySelector('.total-count').textContent = TL.getList().length
+    document.querySelector('.today-count').textContent = getTodayCount()
+    
+    updateProgressBar()
   }
 
   const getTodayCount = () => {
@@ -173,6 +174,19 @@ function App() {
     const [year, month, day] = date.split('-')
 
     return `${monthChart[month]} ${+day}, ${+year}`
+  }
+
+  const updateProgressBar = () => {
+    const progressBar = document.querySelector('progress')
+    const completedPercentage = document.querySelector('.completed-percentage')
+
+    const total = TL.getList().length
+    const completed = TL.getList().filter(i => i.completed === true).length
+    const completionPercent = Math.round(completed/total * 100)
+
+    progressBar.setAttribute('value', completed)
+    progressBar.setAttribute('max', total)
+    completedPercentage.textContent = `${completionPercent}%`
   }
 
   const updateUI = () => {
