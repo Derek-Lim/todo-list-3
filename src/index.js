@@ -60,6 +60,78 @@ function App() {
     todoItemSection2.appendChild(img2)
   }
 
+  const updateProjectContainer = () => {
+    document.querySelector('.project-container').innerHTML = ''
+    for (const [project, qty] of Object.entries(getProjectData())) {
+      createProject(project, qty)
+    }
+  }
+
+  const getProjectData = () => {
+    const projectList = TL.getList().map(item => item.project.toLowerCase())
+    const projectObj = projectList.reduce((obj, project) => {
+      obj[project] = (obj[project] || 0) + 1
+      return obj
+    }, {})
+    return projectObj
+  }
+
+  const createProject = (project, qty) => {
+    const projectContainer = document.querySelector('.project-container')
+
+    const div = document.createElement('div')
+    div.classList.add('category')
+    projectContainer.appendChild(div)
+
+    const span = document.createElement('span')
+    span.textContent = titleCase(project)
+    div.appendChild(span)
+
+    const btn = document.createElement('button')
+    btn.textContent = qty
+    div.appendChild(btn)
+  }
+
+  const titleCase = (str) => {
+    return str.split(' ').map(function(word) {
+      return (word.charAt(0).toUpperCase() + word.slice(1))
+    }).join(' ')
+  }
+
+  const updateMenu = () => {
+    const totalCountBtn = document.querySelector('.total-count')
+    const todayCountBtn = document.querySelector('.today-count')
+    totalCountBtn.textContent = TL.getList().length
+    todayCountBtn.textContent = getTodayCount()
+  }
+
+  const getTodayCount = () => {
+    const list = TL.getList()
+    return list.filter(item => item.dueDate === getTodayDateFormatted()).length
+  }
+
+  const getTodayDateFormatted = () => {
+    const monthChart = {
+      'Jan': '01',
+      'Feb': '02',
+      'Mar': '03',
+      'Apr': '04',
+      'May': '05',
+      'Jun': '06',
+      'Jul': '07',
+      'Aug': '08',
+      'Sep': '09',
+      'Oct': '10',
+      'Nov': '11',
+      'Dec': '12'
+    }
+
+    const today = new Date()
+    const [_, month, day, year] = today.toDateString().split(' ')
+
+    return `${year}-${monthChart[month]}-${day}`
+  }
+
   const clearAddTodoForm = () => {
     addTodoForm.querySelector('#title').value = ''
     addTodoForm.querySelector('#project').value = ''
@@ -99,6 +171,8 @@ function App() {
       addTodoForm.querySelector('input[name="priority"]:checked').id,
       addTodoForm.querySelector('#project').value
     )
+    updateMenu()
+    updateProjectContainer()
     updateTodoContainer()
     clearAddTodoForm()
     addTodoModal.close()
@@ -111,6 +185,8 @@ function App() {
   }
 
   loadEventListeners()
+  updateMenu()
+  updateProjectContainer()
   updateTodoContainer()
 }
 

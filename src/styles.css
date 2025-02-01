@@ -12,7 +12,7 @@ button {
 
 hr {
   width: 80%;
-  margin: 10px auto;
+  margin: 15px auto;
 }
 
 dialog {
@@ -68,9 +68,8 @@ input, textarea {
   margin-bottom: 30px;
 }
 
-.sidebar {
-  background-color: white;
-  padding-top: 20px;
+.menu-container, .project-container {
+  padding-top: 15px;
   display: flex;
   flex-direction: column;
   gap: 10px;
