@@ -198,16 +198,25 @@ function App() {
   const addTodoFormHandler = (e) => {
     e.preventDefault()
 
-    TL.addTodo(
-      addTodoForm.querySelector('#title').value,
-      addTodoForm.querySelector('#description').value,
-      addTodoForm.querySelector('#due-date').value,
-      addTodoForm.querySelector('input[name="priority"]:checked').id,
-      addTodoForm.querySelector('#project').value
+    const namingClash = TL.getList().some(item => 
+      item.title.toLowerCase() ===
+      addTodoForm.querySelector('#title').value.toLowerCase()
     )
-    updateUI()
-    clearAddTodoForm()
-    addTodoModal.close()
+
+    if (namingClash) {
+      alert('Todo already exists')
+    } else {
+      TL.addTodo(
+        addTodoForm.querySelector('#title').value,
+        addTodoForm.querySelector('#description').value,
+        addTodoForm.querySelector('#due-date').value,
+        addTodoForm.querySelector('input[name="priority"]:checked').id,
+        addTodoForm.querySelector('#project').value
+      )
+      updateUI()
+      clearAddTodoForm()
+      addTodoModal.close()
+    }
   }
 
   const loadEventListeners = () => {
