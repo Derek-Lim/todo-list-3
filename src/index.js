@@ -12,10 +12,10 @@ function App() {
   const addTodoForm = document.getElementById('add-todo-form')
 
   const updateTodoContainer = () => {
-    const todoBox = document.querySelector('.todo-container')
+    const todoContainer = document.querySelector('.todo-container')
     const list = TL.getList()
 
-    todoBox.innerHTML = ''
+    todoContainer.innerHTML = ''
 
     if (list.length > 0) {
       list.forEach((item, index) => {
@@ -24,8 +24,10 @@ function App() {
           item.dueDate,
           item.priority,
           item.completed,
+          item.description,
+          item.project,
           index,
-          todoBox
+          todoContainer
         )
       })
     } else {
@@ -33,16 +35,25 @@ function App() {
       div.textContent = 'No tasks to show'
       div.style.fontSize = '50px'
       div.style.marginTop = '50px'
-      todoBox.appendChild(div)
+      todoContainer.appendChild(div)
     }
   }
 
-  const createTodo = (title, dueDate, priority, completed, index, todoBox) => {
+  const createTodo = (
+    title,
+    dueDate,
+    priority,
+    completed,
+    description,
+    project,
+    index,
+    todoContainer
+  ) => {
     const todoItem = document.createElement('div')
     todoItem.classList.add('todo-item', `priority-${priority}`)
     todoItem.dataset.index = index
     todoItem.classList.toggle('completed', completed)
-    todoBox.appendChild(todoItem)
+    todoContainer.appendChild(todoItem)
   
     const todoItemSection1 = document.createElement('div')
     todoItemSection1.classList.add('todo-item-section')
@@ -75,7 +86,43 @@ function App() {
     const button = document.createElement('button')
     button.textContent = 'Details'
     button.dataset.index = index
+    button.addEventListener('click', () => detailsModal.showModal())
     todoItemSection2.appendChild(button)
+
+    const detailsModal = document.createElement('dialog')
+    detailsModal.setAttribute('id', 'details-modal')
+    todoItemSection2.appendChild(detailsModal)
+
+    const details = document.createElement('div')
+    details.classList.add('details')
+    detailsModal.appendChild(details)
+
+    const detail1 = document.createElement('h2')
+    detail1.textContent = title
+    details.appendChild(detail1)
+
+    const detail2 = document.createElement('div')
+    detail2.textContent = `Description: ${description}`
+    details.appendChild(detail2)
+
+    const detail3 = document.createElement('div')
+    detail3.textContent = `Due Date: ${dateFormatter(dueDate)}`
+    details.appendChild(detail3)
+
+    const detail4 = document.createElement('div')
+    detail4.textContent = `Priority: ${priority}`
+    details.appendChild(detail4)
+
+    const detail5 = document.createElement('div')
+    detail5.textContent = `Project: ${project}`
+    details.appendChild(detail5)
+
+    const detailsCloseBtn = document.createElement('button')
+    detailsCloseBtn.setAttribute('type', 'button')
+    detailsCloseBtn.setAttribute('id', 'details-close-btn')
+    detailsCloseBtn.textContent = 'Close'
+    detailsCloseBtn.addEventListener('click', () => detailsModal.close())
+    details.appendChild(detailsCloseBtn)
   
     const img1 = document.createElement('img')
     img1.src = editIcon
