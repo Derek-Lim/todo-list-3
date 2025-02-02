@@ -78,6 +78,7 @@ input, textarea {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  text-align: center;
 }
 
 .category {
@@ -95,6 +96,7 @@ input, textarea {
 .todo-container {
   background-color: lightslategray;
   padding-top: 10px;
+  text-align: center;
 }
 
 .todo-item {

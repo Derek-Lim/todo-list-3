@@ -1,30 +1,5 @@
 export default function TodoList() {
-  const list = [
-    {
-      title: 'Learn Webpack',
-      description: 'read about webpack and do projects',
-      dueDate: '2025-02-01',
-      priority: 'high',
-      project: 'Study',
-      completed: false
-    },
-    {
-      title: 'Jog',
-      description: 'run at moderate pace for 2 miles',
-      dueDate: '2025-02-01',
-      priority: 'medium',
-      project: 'Gym',
-      completed: false
-    },
-    {
-      title: 'Water plants',
-      description: 'pour 100ml each into all pots',
-      dueDate: '2025-02-02',
-      priority: 'low',
-      project: 'Work',
-      completed: false
-    }
-  ]
+  const list = JSON.parse(localStorage.getItem('todoList')) || []
 
   const getList = () => list
 
@@ -37,10 +12,12 @@ export default function TodoList() {
       project: project,
       completed: false
     })
+    localStorage.setItem('todoList', JSON.stringify(list))
   }
 
   const toggleCompletion = (index) => {
     list[index].completed = !list[index].completed
+    localStorage.setItem('todoList', JSON.stringify(list))
   }
 
   return { getList, addTodo, toggleCompletion }

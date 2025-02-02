@@ -12,22 +12,37 @@ function App() {
   const addTodoForm = document.getElementById('add-todo-form')
 
   const updateTodoContainer = () => {
-    document.querySelector('.todo-container').innerHTML = ''
-
+    const todoBox = document.querySelector('.todo-container')
     const list = TL.getList()
-    list.forEach((item, index) => {
-      createTodo(item.title, item.dueDate, item.priority, item.completed, index)
-    })
+
+    todoBox.innerHTML = ''
+
+    if (list.length > 0) {
+      list.forEach((item, index) => {
+        createTodo(
+          item.title,
+          item.dueDate,
+          item.priority,
+          item.completed,
+          index,
+          todoBox
+        )
+      })
+    } else {
+      const div = document.createElement('div')
+      div.textContent = 'No tasks to show'
+      div.style.fontSize = '50px'
+      div.style.marginTop = '50px'
+      todoBox.appendChild(div)
+    }
   }
 
-  const createTodo = (title, dueDate, priority, completed, index) => {
-    const todoContainer = document.querySelector('.todo-container')
-  
+  const createTodo = (title, dueDate, priority, completed, index, todoBox) => {
     const todoItem = document.createElement('div')
     todoItem.classList.add('todo-item', `priority-${priority}`)
     todoItem.dataset.index = index
     todoItem.classList.toggle('completed', completed)
-    todoContainer.appendChild(todoItem)
+    todoBox.appendChild(todoItem)
   
     const todoItemSection1 = document.createElement('div')
     todoItemSection1.classList.add('todo-item-section')
@@ -76,9 +91,15 @@ function App() {
   }
 
   const updateProjectContainer = () => {
-    document.querySelector('.project-container').innerHTML = ''
-    for (const [project, qty] of Object.entries(getProjectData())) {
-      createProject(project, qty)
+    const container = document.querySelector('.project-container')
+    container.innerHTML = ''
+
+    if (TL.getList().length > 0) {
+      for (const [project, qty] of Object.entries(getProjectData())) {
+        createProject(project, qty)
+      }
+    } else {
+      container.textContent = 'No projects to show'
     }
   }
 
@@ -116,7 +137,7 @@ function App() {
   const updateMenu = () => {
     document.querySelector('.total-count').textContent = TL.getList().length
     document.querySelector('.today-count').textContent = getTodayCount()
-    
+
     updateProgressBar()
   }
 
@@ -152,7 +173,8 @@ function App() {
     addTodoForm.querySelector('#project').value = ''
     addTodoForm.querySelector('#due-date').value = ''
     addTodoForm.querySelector('#description').value = ''
-    addTodoForm.querySelector('input[name="priority"]:checked').checked = false
+    const checked = addTodoForm.querySelector('input[name="priority"]:checked')
+    if (checked) checked.checked = false
   }
 
   const dateFormatter = (date) => {
@@ -184,9 +206,13 @@ function App() {
     const completed = TL.getList().filter(i => i.completed === true).length
     const completionPercent = Math.round(completed/total * 100)
 
-    progressBar.setAttribute('value', completed)
-    progressBar.setAttribute('max', total)
-    completedPercentage.textContent = `${completionPercent}%`
+    if (isNaN(completionPercent)) {
+      completedPercentage.textContent = '-'
+    } else {
+      progressBar.setAttribute('value', completed)
+      progressBar.setAttribute('max', total)
+      completedPercentage.textContent = `${completionPercent}%`
+    }
   }
 
   const updateUI = () => {
@@ -221,7 +247,10 @@ function App() {
 
   const loadEventListeners = () => {
     addTodoOpenBtn.addEventListener('click', () => addTodoModal.showModal())
-    addTodoCloseBtn.addEventListener('click', () => addTodoModal.close())
+    addTodoCloseBtn.addEventListener('click', () => {
+      clearAddTodoForm()
+      addTodoModal.close()
+    })
     addTodoForm.addEventListener('submit', addTodoFormHandler)
   }
 
