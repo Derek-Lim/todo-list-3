@@ -87,6 +87,10 @@ function App() {
     img2.src = deleteIcon
     img2.setAttribute('height', '20px')
     img2.dataset.index = index
+    img2.addEventListener('click', (e) => {
+      TL.deleteTodo(e.target.dataset.index)
+      updateUI()
+    })
     todoItemSection2.appendChild(img2)
   }
 

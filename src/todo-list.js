@@ -20,5 +20,10 @@ export default function TodoList() {
     localStorage.setItem('todoList', JSON.stringify(list))
   }
 
-  return { getList, addTodo, toggleCompletion }
+  const deleteTodo = (index) => {
+    list.splice(index, 1)
+    localStorage.setItem('todoList', JSON.stringify(list))
+  }
+
+  return { getList, addTodo, toggleCompletion, deleteTodo }
 }
